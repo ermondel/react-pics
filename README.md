@@ -3,3 +3,16 @@
 # React Pictures
 
 _Project for Udemy ReactJS course._
+
+### About
+
+Image search app using unsplash API in ReactJS.
+
+### Usage
+
+### Technologies
+
+- React
+- Axios
+- Semantic UI
+- Unsplash API
