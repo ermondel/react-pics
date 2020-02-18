@@ -1,45 +1,79 @@
 import React from 'react';
-import unsplash from '../api/unsplash';
+import Dimmer from './Dimmer';
+import NotAvailable from './NotAvailable';
 import SearchBar from './SearchBar';
 import ImageList from './ImageList';
-import Inactive from './Inactive';
+import Loading from './Loading';
+import unsplash from '../api/unsplash';
+import './App.css';
 
 class App extends React.Component {
   state = {
     images: [],
-    active: true,
+    remoteStatus: 'awaiting',
+    imagesLoadStatus: 'none'
   };
 
-  onSearchSubmit = async (query) => {
-    const response = await unsplash.get('/search/photos', {
-      params: { query },
+  componentDidMount() {
+    unsplash
+      .get('/')
+      .then((response) => {
+        this.setState({
+          remoteStatus: response.status === 200 ? 'ready' : 'not available'
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          remoteStatus: 'not available'
+        });
+      });
+  }
+
+  onSearchSubmit = (query) => {
+    this.setState({
+      imagesLoadStatus: 'awaiting'
     });
 
-    if (response.headers['x-ratelimit-remaining'] > 0) {
-      this.setState({
-        images: response.data.results,
-        active: true,
+    unsplash
+      .get('/unsplash', {
+        params: {
+          q: query
+        }
+      })
+      .then((response) => {
+        this.setState({
+          images: response.data.results,
+          imagesLoadStatus: 'loaded'
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          remoteStatus: 'not available',
+          imagesLoadStatus: 'none'
+        });
       });
-    } else {
-      this.setState({
-        images: [],
-        active: false,
-      });
-    }
   };
 
   render() {
-    const { active } = this.state;
-    const style = { marginTop: '10px' };
+    const APP_WAIT = this.state.remoteStatus === 'awaiting';
+    const APP_READY = this.state.remoteStatus === 'ready';
+    const APP_NOT = this.state.remoteStatus === 'not available';
+    const IMG_WAIT = this.state.imagesLoadStatus === 'awaiting';
+    const IMG_READY = this.state.imagesLoadStatus === 'loaded';
+    const IMG_NONE = this.state.imagesLoadStatus === 'none';
 
     return (
-      <div className="ui container" style={style}>
-        <SearchBar onSubmit={this.onSearchSubmit} />
-        {active ? (
-          <ImageList images={this.state.images} />
-        ) : (
-          <Inactive />
+      <div className="ui container app">
+        {APP_WAIT && <Dimmer />}
+        {APP_READY && (
+          <div className="ui container">
+            <SearchBar onSubmit={this.onSearchSubmit} />
+            {IMG_WAIT && <Loading />}
+            {IMG_READY && <ImageList images={this.state.images} />}
+            {IMG_NONE && null}
+          </div>
         )}
+        {APP_NOT && <NotAvailable />}
       </div>
     );
   }

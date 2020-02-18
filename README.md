@@ -1,5 +1,4 @@
 ![React](https://github.com/ermondel/wiki/blob/master/files/icons48b/React48b.png)
-![Heroku](https://github.com/ermondel/wiki/blob/master/files/icons48b/Heroku48b.png)
 
 # React Pictures
 
@@ -7,11 +6,11 @@ _Project for Udemy ReactJS course._
 
 ### About
 
-Image search app using unsplash API in ReactJS.
+Image search app using unsplash API.
 
 ### Usage
 
-[Demo](https://demo-react-pics.herokuapp.com)
+[Demo](https://ermondel.github.io/react-pics)
 
 ### Technologies
 
@@ -19,4 +18,3 @@ Image search app using unsplash API in ReactJS.
 - Axios
 - Semantic UI
 - Unsplash API
-- Heroku
