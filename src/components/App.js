@@ -11,7 +11,7 @@ class App extends React.Component {
   state = {
     images: [],
     remoteStatus: 'awaiting',
-    imagesLoadStatus: 'none'
+    imagesLoadStatus: 'none',
   };
 
   componentDidMount() {
@@ -19,37 +19,33 @@ class App extends React.Component {
       .get('/')
       .then((response) => {
         this.setState({
-          remoteStatus: response.status === 200 ? 'ready' : 'not available'
+          remoteStatus: response.status === 200 ? 'ready' : 'not available',
         });
       })
       .catch((error) => {
-        this.setState({
-          remoteStatus: 'not available'
-        });
+        this.setState({ remoteStatus: 'not available' });
       });
   }
 
   onSearchSubmit = (query) => {
     this.setState({
-      imagesLoadStatus: 'awaiting'
+      imagesLoadStatus: 'awaiting',
     });
 
     unsplash
-      .get('/unsplash', {
-        params: {
-          q: query
-        }
+      .get('/request/unsplash', {
+        params: { query },
       })
       .then((response) => {
         this.setState({
           images: response.data.results,
-          imagesLoadStatus: 'loaded'
+          imagesLoadStatus: 'loaded',
         });
       })
       .catch((error) => {
         this.setState({
           remoteStatus: 'not available',
-          imagesLoadStatus: 'none'
+          imagesLoadStatus: 'none',
         });
       });
   };
@@ -63,10 +59,10 @@ class App extends React.Component {
     const IMG_NONE = this.state.imagesLoadStatus === 'none';
 
     return (
-      <div className="ui container app">
+      <div className='ui container app'>
         {APP_WAIT && <Dimmer />}
         {APP_READY && (
-          <div className="ui container">
+          <div className='ui container'>
             <SearchBar onSubmit={this.onSearchSubmit} />
             {IMG_WAIT && <Loading />}
             {IMG_READY && <ImageList images={this.state.images} />}
