@@ -59,17 +59,19 @@ class App extends React.Component {
     const IMG_NONE = this.state.imagesLoadStatus === 'none';
 
     return (
-      <div className='ui container app'>
-        {APP_WAIT && <Dimmer />}
-        {APP_READY && (
-          <div className='ui container'>
-            <SearchBar onSubmit={this.onSearchSubmit} />
-            {IMG_WAIT && <Loading />}
-            {IMG_READY && <ImageList images={this.state.images} />}
-            {IMG_NONE && null}
-          </div>
-        )}
-        {APP_NOT && <NotAvailable />}
+      <div className='app'>
+        <div className='ui container'>
+          {APP_WAIT && <Dimmer />}
+          {APP_READY && (
+            <div className='ui container'>
+              <SearchBar onSubmit={this.onSearchSubmit} />
+              {IMG_WAIT && <Loading />}
+              {IMG_READY && <ImageList images={this.state.images} />}
+              {IMG_NONE && null}
+            </div>
+          )}
+          {APP_NOT && <NotAvailable />}
+        </div>
       </div>
     );
   }
