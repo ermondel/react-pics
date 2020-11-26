@@ -14,6 +14,8 @@ Image search app using unsplash API.
 
 [![React Pictures](https://github.com/ermondel/wiki/blob/master/screens/react-pics-app.jpg)](https://ermondel.github.io/react-pics)
 
+[![React Pictures](https://github.com/ermondel/wiki/blob/master/screens/react-pics_smartphone.jpg)](https://ermondel.github.io/react-pics)
+
 | Technologies |
 | ------------ |
 | React        |
