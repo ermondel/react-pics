@@ -16,9 +16,9 @@ Image search app using unsplash API.
 
 [![React Pictures](https://github.com/ermondel/wiki/blob/master/screens/react-pics_smartphone.jpg)](https://ermondel.github.io/react-pics)
 
-| Technologies |
-| ------------ |
-| React        |
-| Axios        |
-| Semantic UI  |
-| Unsplash API |
+### Technologies
+
+- [React](https://reactjs.org)
+- [Axios](https://www.npmjs.com/package/axios)
+- [Semantic UI](https://semantic-ui.com)
+- [Unsplash API](https://unsplash.com/developers)
